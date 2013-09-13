@@ -23,7 +23,32 @@ Installation
 Getting Started
 ---------------
 
-You must create a new task in your Gruntfile.js file:
+Create a server.py file in at the root of your yeoman app:
+
+.. code-block:: python
+
+    from flask import Flask, jsonify
+    from flask_yeoman import flask_yeoman
+
+    app = Flask(__name__)
+    app.register_blueprint(flask_yeoman)
+
+    if __name__ == "__main__":
+        app.run(host='0.0.0.0', port=5000)
+
+You can start working on your app as usual, and since it automatically injects Flask ``config``` allowing you to easily share configuration between Flask and your Backbone app (using the ``tojson`` jinja helper):
+
+.. code-block:: html
+
+    <script>
+    window.myapp.config = {myvar: {{ config.MYVAR|tojson }},
+                           myvar2: {{ config.MYVAR2|tojson }}};
+    </script>
+
+Grunt configuration
+~~~~~~~~~~~~~~~~~~~
+
+In order to use your own server with Yeoman, you must create a new task in your Gruntfile.js file:
 
 .. code-block:: javascript
 
@@ -68,18 +93,8 @@ And replace the ``connect:reload`` task by ``flask`` in the server task:
     });
 
 
-Finally, create a server.py file in at the root of your yeoman app:
-
-.. code-block:: python
-
-    from flask import Flask, jsonify
-    from flask_yeoman import flask_yeoman
-
-    app = Flask(__name__)
-    app.register_blueprint(flask_yeoman)
-
-    if __name__ == "__main__":
-        app.run(host='0.0.0.0', port=5000)
+Livereload support
+~~~~~~~~~~~~~~~~~~
 
 And for the livereload support, add this snippet before the closing body in your index.html file:
 
