@@ -1,0 +1,14 @@
+.fuse*
+.subl*
+*.pyc
+*wip.py
+*.json
+build/
+dist/
+*.egg-info/
+.sass-cache
+.DS_Store
+*tar.gz
+*.zip
+.pypirc
+docs/_build
