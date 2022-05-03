@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, send_file, render_template_string
 from werkzeug.exceptions import NotFound
+from werkzeug.utils import safe_join
 
 import os
 
@@ -18,7 +19,7 @@ def serve_index(path):
     root_path = current_app.root_path
     default_path = os.path.join(root_path, fpath)
 
-    default_path_abs = os.path.join(default_path, path)
+    default_path_abs = safe_join(default_path, path)
 
     if os.path.isfile(default_path_abs):
         if path == 'index.html':
